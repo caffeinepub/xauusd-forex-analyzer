@@ -1,0 +1,111 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type _CaffeineStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _CaffeineStorageRefillInformation = record {
+                                           proposed_top_up_amount: opt nat;};
+type _CaffeineStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type TradingZones = 
+ record {
+   fvgs: vec FairValueGap;
+   liquiditySweeps: vec LiquiditySweep;
+   orderBlocks: vec OrderBlock;
+ };
+type OrderBlock = 
+ record {
+   active: bool;
+   blockType: text;
+   id: nat;
+   priceHigh: float64;
+   priceLow: float64;
+   timestamp: int;
+ };
+type Main = 
+ service {
+   _caffeineStorageBlobIsLive: (hash: blob) -> (bool) query;
+   _caffeineStorageBlobsToDelete: () -> (vec blob) query;
+   _caffeineStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+   _caffeineStorageCreateCertificate: (blobHash: text) ->
+    (_CaffeineStorageCreateCertificateResult);
+   _caffeineStorageRefillCashier: (refillInformation:
+    opt _CaffeineStorageRefillInformation) -> (_CaffeineStorageRefillResult);
+   _caffeineStorageUpdateGatewayPrincipals: () -> ();
+   addImageAnalysis: (blobId: text, notes: text, analysisResult: text) ->
+    (ImageAnalysis);
+   fetchLivePrice: () -> (LivePrice);
+   getCachedPrice: () -> (LivePrice) query;
+   getCandles: (limit: nat) -> (vec Candle) query;
+   getImageAnalyses: () -> (vec ImageAnalysis) query;
+   getTradingZones: () -> (TradingZones) query;
+   transform: (input: TransformationInput) -> (TransformationOutput) query;
+ };
+type LivePrice = 
+ record {
+   change: float64;
+   changePercent: float64;
+   price: float64;
+   timestamp: int;
+ };
+type LiquiditySweep = 
+ record {
+   id: nat;
+   price: float64;
+   strength: nat;
+   sweepType: text;
+   swept: bool;
+   timestamp: int;
+ };
+type ImageAnalysis = 
+ record {
+   analysisResult: text;
+   blobId: text;
+   id: nat;
+   notes: text;
+   timestamp: int;
+ };
+type FairValueGap = 
+ record {
+   filled: bool;
+   gapType: text;
+   id: nat;
+   priceHigh: float64;
+   priceLow: float64;
+   timestamp: int;
+ };
+type Candle = 
+ record {
+   close: float64;
+   high: float64;
+   low: float64;
+   open: float64;
+   timestamp: int;
+   volume: float64;
+ };
+service : () -> Main

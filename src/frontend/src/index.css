@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 200 800;
+}
+
+@font-face {
+  font-family: "GeneralSans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 200 700;
+}
+
+@font-face {
+  font-family: "GeistMono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 900;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    /* Dark gold dashboard theme */
+    --background: 0.115 0.011 255;
+    --foreground: 0.93 0.005 255;
+    --card: 0.155 0.012 255;
+    --card-foreground: 0.93 0.005 255;
+    --popover: 0.18 0.015 255;
+    --popover-foreground: 0.93 0.005 255;
+    --primary: 0.72 0.12 70;
+    --primary-foreground: 0.12 0.01 70;
+    --secondary: 0.22 0.015 255;
+    --secondary-foreground: 0.93 0.005 255;
+    --muted: 0.2 0.012 255;
+    --muted-foreground: 0.62 0.01 255;
+    --accent: 0.25 0.015 255;
+    --accent-foreground: 0.93 0.005 255;
+    --destructive: 0.58 0.2 25;
+    --destructive-foreground: 0.97 0 0;
+    --border: 0.26 0.015 255;
+    --input: 0.22 0.015 255;
+    --ring: 0.72 0.12 70;
+    --gold: 0.72 0.12 70;
+    --gold-hover: 0.77 0.13 70;
+    --bullish: 0.7 0.18 150;
+    --bearish: 0.6 0.2 25;
+    --chart-1: 0.72 0.12 70;
+    --chart-2: 0.7 0.18 150;
+    --chart-3: 0.6 0.2 25;
+    --chart-4: 0.55 0.18 264;
+    --chart-5: 0.68 0.01 255;
+    --sidebar: 0.155 0.012 255;
+    --sidebar-foreground: 0.93 0.005 255;
+    --sidebar-primary: 0.72 0.12 70;
+    --sidebar-primary-foreground: 0.12 0.01 70;
+    --sidebar-accent: 0.22 0.015 255;
+    --sidebar-accent-foreground: 0.93 0.005 255;
+    --sidebar-border: 0.26 0.015 255;
+    --sidebar-ring: 0.72 0.12 70;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: "GeneralSans", sans-serif;
+  }
+}
